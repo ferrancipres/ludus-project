@@ -1,37 +1,49 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import axios from "axios";
-import { Drink } from "../../types/typesFerran";
+import { drinkProps } from "../../types/typesFerran";
+
+type DataType = {
+  alcoholContent: string;
+  idDrink: string;
+  strDrink: string;
+  strDrinkThumb: string;
+};
 
 export const SearchAxio3 = () => {
   //   1 - Setear los hooks
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
-  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`;
+  const [data, setData] = useState<DataType[]>([]);
+  const endpoint = useMemo(
+    () => `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`,
+    [search]
+  );
 
   //   2 - Funcion para traer los datos
-  const axiosData = async () => {
+  const axiosData = useCallback(async () => {
     try {
       const res = await axios.get(endpoint);
       // Asegúrate de que la respuesta tenga la estructura que esperas
       if (res.data && res.data.drinks) {
         // Limita la respuesta a los primeros 6 elementos
-        const limitedData = res.data.drinks.slice(0, 10);
+        const limitedData = res.data.drinks.slice(0, 6);
 
         // Hacer una segunda llamada a la API para cada elemento
-        const filter = limitedData.map(async (drink: Drink) => {
+        const filter = limitedData.map(async (drink: drinkProps) => {
           const res = await axios.get(
             `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink.idDrink}`
           );
-          // Si el ingrediente numero 7 no es null, no lo incluyas en la Array
-          return {
-            ...drink,
-            alcoholContent: res.data.drinks[0].strAlcoholic,
-          };
+
+          if (res.data.drinks[0].strIngredient7 === null) {
+            return {
+              ...drink,
+              alcoholContent: res.data.drinks[0].strAlcoholic,
+            };
+          }
         });
 
-        const updatedData: any = await Promise.all(filter).then((val) => {
-          return val.sort((a, b) => {
+        const updatedData = await Promise.all(filter).then((result) => {
+          const finalResult = result.filter(Boolean);
+          return finalResult.sort((a, b) => {
             if (
               a.alcoholContent !== "Alcoholic" &&
               b.alcoholContent === "Alcoholic"
@@ -52,16 +64,16 @@ export const SearchAxio3 = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [endpoint]);
 
   useEffect(() => {
     axiosData();
-  }, [search]);
+  }, [axiosData]);
 
   //   3 - Función de búsqueda
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  };
+  }, []);
   //   4 - Filtrar los datos
 
   return (
@@ -78,7 +90,8 @@ export const SearchAxio3 = () => {
   );
 };
 
-// 1. Ingrediente principal
-// 2. Filtrar con llamada "map" numero de ingredientes
-// 3. Filtrar el resultado "map" añadir alcoholico + ordenar array
-// 4. Método slide para 6 unidades
+// 6. Manejo de errores: Podrías mejorar el manejo de errores en las llamadas a la API. Actualmente, solo estás registrando el error en la consola. Podrías considerar mostrar un mensaje de error al usuario.
+
+// 7. Evitar llamadas a la API innecesarias: Podrías agregar una condición para evitar hacer la llamada a la API si la búsqueda está vacía.
+
+// 7. Meter isLoading - estado
