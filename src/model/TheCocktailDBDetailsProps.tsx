@@ -1,4 +1,4 @@
-export interface CocktailDBProps {
+export interface TheCocktailDBDetailsProps {
   idDrink: string;
   strDrink: string;
   strDrinkAlternate?: string;
