@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { drinkProps } from "../../types/typesFerran";
 
 type DataType = {
@@ -13,6 +13,7 @@ export const SearchAxio3 = () => {
   //   1 - Setear los hooks
   const [search, setSearch] = useState("");
   const [data, setData] = useState<DataType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const endpoint = useMemo(
     () => `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`,
     [search]
@@ -20,24 +21,80 @@ export const SearchAxio3 = () => {
 
   //   2 - Funcion para traer los datos
   const axiosData = useCallback(async () => {
+    if (search.trim() === "") return setData([]);
     try {
+      setIsLoading(true);
       const res = await axios.get(endpoint);
-      // Asegúrate de que la respuesta tenga la estructura que esperas
+
       if (res.data && res.data.drinks) {
-        // Limita la respuesta a los primeros 6 elementos
         const limitedData = res.data.drinks.slice(0, 6);
 
-        // Hacer una segunda llamada a la API para cada elemento
         const filter = limitedData.map(async (drink: drinkProps) => {
-          const res = await axios.get(
-            `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink.idDrink}`
-          );
+          try {
+            const res = await axios.get(
+              `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink.idDrink}`
+            );
 
-          if (res.data.drinks[0].strIngredient7 === null) {
-            return {
-              ...drink,
-              alcoholContent: res.data.drinks[0].strAlcoholic,
-            };
+            if (res.data.drinks[0].strIngredient7 === null) {
+              const ingredients = [
+                res.data.drinks[0].strIngredient1,
+                res.data.drinks[0].strIngredient2,
+                res.data.drinks[0].strIngredient3,
+                res.data.drinks[0].strIngredient4,
+                res.data.drinks[0].strIngredient5,
+                res.data.drinks[0].strIngredient6,
+              ];
+
+              const mesures = [
+                res.data.drinks[0].strMeasure1,
+                res.data.drinks[0].strMeasure2,
+                res.data.drinks[0].strMeasure3,
+                res.data.drinks[0].strMeasure4,
+                res.data.drinks[0].strMeasure5,
+                res.data.drinks[0].strMeasure6,
+              ];
+
+              const filteredIngredients = ingredients.filter(
+                (ingredient) => ingredient !== null
+              );
+
+              const filteredMesures = mesures.filter(
+                (mesure) => mesure !== null
+              );
+
+              return {
+                ...drink,
+                category: res.data.drinks[0].strCategory,
+                glas: res.data.drinks[0].strGlass,
+                alcoholContent: res.data.drinks[0].strAlcoholic,
+                instructions: res.data.drinks[0].strInstructions,
+                ingredients: filteredIngredients,
+                mesures: filteredMesures,
+              };
+            }
+          } catch (err) {
+            if (axios.isAxiosError(err)) {
+              const axiosError = err as AxiosError;
+              console.error(
+                "Error data (second API call): ",
+                axiosError.response?.data
+              );
+              console.error(
+                "Error status (second API call): ",
+                axiosError.response?.status
+              );
+              console.error(
+                "Error headers (second API call): ",
+                axiosError.response?.headers
+              );
+            } else if ((err as AxiosError).request) {
+              console.error(
+                "Error request (second API call): ",
+                (err as AxiosError).request
+              );
+            } else {
+              console.error("Error in second API call: ", err);
+            }
           }
         });
 
@@ -59,10 +116,32 @@ export const SearchAxio3 = () => {
           });
         });
         setData(updatedData);
-        console.log("updateData", updatedData);
       }
     } catch (err) {
-      console.error(err);
+      if (axios.isAxiosError(err)) {
+        const axiosError = err as AxiosError;
+        console.error(
+          "Error data (first API call): ",
+          axiosError.response?.data
+        );
+        console.error(
+          "Error status (first API call): ",
+          axiosError.response?.status
+        );
+        console.error(
+          "Error headers (first API call): ",
+          axiosError.response?.headers
+        );
+      } else if ((err as AxiosError).request) {
+        console.error(
+          "Error request (first API call): ",
+          (err as AxiosError).request
+        );
+      } else {
+        console.error("Error in first API call", err);
+      }
+    } finally {
+      setIsLoading(false);
     }
   }, [endpoint]);
 
@@ -76,6 +155,8 @@ export const SearchAxio3 = () => {
   }, []);
   //   4 - Filtrar los datos
 
+  console.log(data);
+
   return (
     <>
       <h5>SearchAxio3</h5>
@@ -85,13 +166,12 @@ export const SearchAxio3 = () => {
         onChange={handleSearch}
         placeholder="Search..."
       />
-      <h5>Resultados: </h5>
+      {isLoading ? <p>Loading...</p> : <h5>Resultados: </h5>}
+      {/* Para mostrar resultados de la búsqueda es necesario utilizar "data" */}
     </>
   );
 };
 
-// 6. Manejo de errores: Podrías mejorar el manejo de errores en las llamadas a la API. Actualmente, solo estás registrando el error en la consola. Podrías considerar mostrar un mensaje de error al usuario.
-
-// 7. Evitar llamadas a la API innecesarias: Podrías agregar una condición para evitar hacer la llamada a la API si la búsqueda está vacía.
-
-// 7. Meter isLoading - estado
+// 8. Revisar optimización de código // renderizado
+// 9. Mejorar tipescript
+// 10. Cambiar nombres de variables

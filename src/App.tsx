@@ -4,10 +4,6 @@ import "./App.css";
 import { SearchAxio3 } from "./components/SearchAxio/SearchAxio3";
 
 function App() {
-  {
-    /* Llamada de axios */
-  }
-
   return (
     <>
       {/* <SearchAxio />  
