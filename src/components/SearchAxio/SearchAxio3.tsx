@@ -1,25 +1,25 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import axios, { AxiosError } from "axios";
-import { drinkProps } from "../../types/typesFerran";
+import axios from "axios";
+import { CocktailDBProps } from "../../types/CocktailDBProps";
+import { handleAxiosError } from "../../util/HandleAxiosError/HandleAxiosError";
 
-type DataType = {
+type DataTypeProps = {
   alcoholContent: string;
   idDrink: string;
   strDrink: string;
   strDrinkThumb: string;
 };
 
+// cambiar el nombre de la función
 export const SearchAxio3 = () => {
-  //   1 - Setear los hooks
   const [search, setSearch] = useState("");
-  const [data, setData] = useState<DataType[]>([]);
+  const [data, setData] = useState<DataTypeProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const endpoint = useMemo(
     () => `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`,
     [search]
   );
 
-  //   2 - Funcion para traer los datos
   const axiosData = useCallback(async () => {
     if (search.trim() === "") return setData([]);
     try {
@@ -29,7 +29,7 @@ export const SearchAxio3 = () => {
       if (res.data && res.data.drinks) {
         const limitedData = res.data.drinks.slice(0, 6);
 
-        const filter = limitedData.map(async (drink: drinkProps) => {
+        const filter = limitedData.map(async (drink: CocktailDBProps) => {
           try {
             const res = await axios.get(
               `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink.idDrink}`
@@ -73,28 +73,7 @@ export const SearchAxio3 = () => {
               };
             }
           } catch (err) {
-            if (axios.isAxiosError(err)) {
-              const axiosError = err as AxiosError;
-              console.error(
-                "Error data (second API call): ",
-                axiosError.response?.data
-              );
-              console.error(
-                "Error status (second API call): ",
-                axiosError.response?.status
-              );
-              console.error(
-                "Error headers (second API call): ",
-                axiosError.response?.headers
-              );
-            } else if ((err as AxiosError).request) {
-              console.error(
-                "Error request (second API call): ",
-                (err as AxiosError).request
-              );
-            } else {
-              console.error("Error in second API call: ", err);
-            }
+            handleAxiosError(err);
           }
         });
 
@@ -116,32 +95,10 @@ export const SearchAxio3 = () => {
           });
         });
         setData(updatedData);
+        setIsLoading(false);
       }
     } catch (err) {
-      if (axios.isAxiosError(err)) {
-        const axiosError = err as AxiosError;
-        console.error(
-          "Error data (first API call): ",
-          axiosError.response?.data
-        );
-        console.error(
-          "Error status (first API call): ",
-          axiosError.response?.status
-        );
-        console.error(
-          "Error headers (first API call): ",
-          axiosError.response?.headers
-        );
-      } else if ((err as AxiosError).request) {
-        console.error(
-          "Error request (first API call): ",
-          (err as AxiosError).request
-        );
-      } else {
-        console.error("Error in first API call", err);
-      }
-    } finally {
-      setIsLoading(false);
+      handleAxiosError(err);
     }
   }, [endpoint]);
 
@@ -153,8 +110,8 @@ export const SearchAxio3 = () => {
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   }, []);
-  //   4 - Filtrar los datos
 
+  //   4 - Filtrar los datos
   console.log(data);
 
   return (
@@ -172,6 +129,5 @@ export const SearchAxio3 = () => {
   );
 };
 
-// 8. Revisar optimización de código // renderizado
-// 9. Mejorar tipescript
+// 9. Separar el código en funciones más pequeñas
 // 10. Cambiar nombres de variables
