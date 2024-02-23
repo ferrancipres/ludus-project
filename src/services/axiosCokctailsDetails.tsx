@@ -1,13 +1,14 @@
 import axios from "axios";
 import { handleError } from "../util/handleError";
 import { TheCocktailDBDetailsProps } from "../model/TheCocktailDBDetailsProps";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const axiosCocktailsDetails = async (
   drink: TheCocktailDBDetailsProps
 ) => {
   try {
     const res = await axios.get(
-      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink.idDrink}`
+      `${API_BASE_URL}/lookup.php?i=${drink.idDrink}`
     );
 
     if (res.data.drinks[0].strIngredient7 === null) {

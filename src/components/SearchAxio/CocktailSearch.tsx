@@ -3,23 +3,21 @@ import { sortDrinks } from "../../util/sortDrink";
 import { axiosCocktails } from "../../services/axiosCocktails";
 import { axiosCocktailsDetails } from "../../services/axiosCokctailsDetails";
 import { DataTypeProps } from "../../types/dataTypeProps";
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
-// cambiar el nombre de la función
-export const SearchAxio3 = () => {
+export const CocktailSearch = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState<DataTypeProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const endpoint = useMemo(
-    () => `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`,
-    [search]
-  );
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const axiosData = useCallback(async () => {
     if (search.trim() === "") return setData([]);
     try {
       setIsLoading(true);
-      const drinks = await axiosCocktails(endpoint);
+      const drinks = await axiosCocktails(
+        `${API_BASE_URL}/filter.php?i=${search}`
+      );
       const drinkDetails = await Promise.all(drinks.map(axiosCocktailsDetails));
       const updatedData = sortDrinks(drinkDetails.filter(Boolean));
       setData(updatedData);
@@ -27,18 +25,26 @@ export const SearchAxio3 = () => {
     } catch (err) {
       handleError(err);
     }
-  }, [endpoint]);
+  }, [search]);
 
   useEffect(() => {
     axiosData();
   }, [axiosData]);
 
-  //   3 - Función de búsqueda
-  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+  const performSearch = useCallback((value: string) => {
+    setSearch(value);
   }, []);
 
-  //   4 - Filtrar los datos
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    performSearch(e.target.value);
+  }, []);
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      performSearch(event.currentTarget.value);
+    }
+  };
+
   console.log(data);
 
   return (
@@ -46,11 +52,17 @@ export const SearchAxio3 = () => {
       <h5>SearchAxio3</h5>
       <input
         type="text"
-        value={search}
         onChange={handleSearch}
+        onKeyDown={handleKeyPress}
         placeholder="Search..."
       />
+      {/* Include button para trigger search */}
+      <button aria-label="Search" onClick={() => performSearch(search)}>
+        Search
+      </button>
       {isLoading ? <p>Loading...</p> : <h5>Resultados: </h5>}
+      {data &&
+        data.map((drink) => <h5 key={drink.idDrink}>{drink.strDrink}</h5>)}
       {/* Para mostrar resultados de la búsqueda es necesario utilizar "data" */}
       {/* {data &&
         data.map((drink) => <h5 key={drink.idDrink}>{drink.strDrink}</h5>)} */}
@@ -60,10 +72,6 @@ export const SearchAxio3 = () => {
 
 // Es posible conseguir una descripción ???
 // Es posible que el buscador haga sugerencias ???
-// que es mejor buscar letra a letra o buscar la palabra completa con enter
-// 9. Separar el código en funciones más pequeñas
-// 11. Este código se renderiza mucho...optimiziar ??
-// 10. Cambiar nombres de variables
 
 // componente filter -> filtrar los datos
 // componente swiper que muestre las bebidas
