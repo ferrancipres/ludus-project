@@ -52,13 +52,15 @@ export const SearchAxio3 = () => {
       />
       {isLoading ? <p>Loading...</p> : <h5>Resultados: </h5>}
       {/* Para mostrar resultados de la búsqueda es necesario utilizar "data" */}
-      {data &&
-        data.map((drink) => <h5 key={drink.idDrink}>{drink.strDrink}</h5>)}
+      {/* {data &&
+        data.map((drink) => <h5 key={drink.idDrink}>{drink.strDrink}</h5>)} */}
     </>
   );
 };
 
 // Es posible conseguir una descripción ???
+// Es posible que el buscador haga sugerencias ???
+// que es mejor buscar letra a letra o buscar la palabra completa con enter
 // 9. Separar el código en funciones más pequeñas
 // 11. Este código se renderiza mucho...optimiziar ??
 // 10. Cambiar nombres de variables
