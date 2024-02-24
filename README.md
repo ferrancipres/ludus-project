@@ -73,13 +73,13 @@ This the stack I used to develop this project:
 - Vite
 - React
 - React-icons
-- Netlify
+- Vercel
 - React Testing Library
 - Jest
 
 #### Deployment // PENDIENTE
 
-The Ludus Cocktails App has been successfully deployed on Netlify, providing a seamless and accessible way for users to experience the application online.You can explore the live deployment of Ludus Cocktails App here https://luduscocktailsparty.netlify.app/
+The Ludus Cocktails App has been successfully deployed on Netlify, providing a seamless and accessible way for users to experience the application online.You can explore the live deployment of Ludus Cocktails App here https://ludus-project.vercel.app/
 
 Feel free to enjoy the application in action and discover a variety of cocktails right at your fingertips! Netlify's robust hosting platform ensures a reliable and responsive user experience.
 
