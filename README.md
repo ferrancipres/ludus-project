@@ -33,6 +33,7 @@ The main objective of this project is to help users discover cocktail recipes ba
 #### Installation and Setup
 
 1. Clone repository. You will need node and pnpm installed globally on your machine.
+   https://github.com/ferrancipres/ludus-project
 
 2. Go to the project folder:
    cd ludus-project
