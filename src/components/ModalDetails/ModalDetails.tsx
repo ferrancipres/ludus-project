@@ -19,9 +19,6 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({
 
   if (!isOpen) return null;
 
-  // tengo que cambiar 100% el código de tailwind porque será un cantazo moral!!!
-  // pero vamos a ver si funciona
-
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-sm flex justify-center items-center z-50"

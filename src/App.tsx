@@ -53,10 +53,13 @@ const App = () => {
         </button>
       </section>
 
-      {dataRandom && dataRandom.length > 0
-        ? CocktailRandomGrid({ dataRandom })
-        : CocktailListGrid({ data })}
-      {/* {isLoading ? <p>Loading...</p> : <h5>Resultados: </h5>} */}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : dataRandom && dataRandom.length > 0 ? (
+        CocktailRandomGrid({ dataRandom })
+      ) : (
+        CocktailListGrid({ data })
+      )}
 
       <Footer />
     </>

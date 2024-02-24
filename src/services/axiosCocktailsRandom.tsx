@@ -13,6 +13,3 @@ export const axiosCocktailsRandom = async () => {
     return null;
   }
 };
-
-// PENDIENTE DE TIPAR LLAMADA API^^
-// PODRIA HACER UN BONTON QUE SEA VOY A TENER SUERTE!!! Y QUE ME TRAIGA 6 BEBIDAS ALEATORIAS

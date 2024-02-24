@@ -13,5 +13,3 @@ export const axiosCocktails = async (ingredient: string) => {
     return null;
   }
 };
-
-// PENDIENTE DE TIPAR LLAMADA API^^

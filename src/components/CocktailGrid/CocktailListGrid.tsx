@@ -5,8 +5,6 @@ type CocktailGridListProps = {
   data: any;
 };
 
-// ESTE ES UN PROBLEMA
-
 const CocktailListGrid: React.FC<CocktailGridListProps> = ({ data }) => {
   return (
     <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 p-10 items-center ">

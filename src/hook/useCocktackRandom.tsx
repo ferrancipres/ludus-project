@@ -1,4 +1,3 @@
-// useRandomCocktail.ts
 import { useState } from "react";
 import { axiosCocktailsRandom } from "../services/axiosCocktailsRandom";
 import { axiosCocktailsDetails } from "../services/axiosCokctailsDetails";

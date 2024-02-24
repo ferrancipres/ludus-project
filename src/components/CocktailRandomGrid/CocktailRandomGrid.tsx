@@ -10,7 +10,7 @@ const CocktailRandomGrid: React.FC<CocktailRandomGridProps> = ({
   dataRandom,
 }) => {
   return (
-    <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 p-10 items-center ">
+    <div className="grid justify-items-center grid-cols-1 gap-2 p-10 items-center ">
       {dataRandom &&
         dataRandom.length > 0 &&
         dataRandom.map((data: TheCocktailDBDetailsProps) => (
