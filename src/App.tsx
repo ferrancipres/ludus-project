@@ -49,7 +49,7 @@ const App = () => {
           type="button"
           onClick={handleRandom}
         >
-          Voy a tener suerte
+          Random Cocktail
         </button>
       </section>
 

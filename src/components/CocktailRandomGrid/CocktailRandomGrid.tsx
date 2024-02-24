@@ -9,9 +9,15 @@ type CocktailRandomGridProps = {
 const CocktailRandomGrid: React.FC<CocktailRandomGridProps> = ({
   dataRandom,
 }) => {
-  return dataRandom.map((data: TheCocktailDBDetailsProps) => (
-    <CocktailRandomCard key={data.idDrink} data={data} />
-  ));
+  return (
+    <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 p-10 items-center ">
+      {dataRandom &&
+        dataRandom.length > 0 &&
+        dataRandom.map((data: TheCocktailDBDetailsProps) => (
+          <CocktailRandomCard key={data.idDrink} data={data} />
+        ))}
+    </div>
+  );
 };
 
 export default CocktailRandomGrid;

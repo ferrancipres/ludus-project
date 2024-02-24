@@ -36,10 +36,10 @@ body {
   min-width: 320px;
   justify-content: center;
   background-image: url("assets/img/background3.jpg");
-  /* background-size: cover;
+  background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 }
 
 h1 {
