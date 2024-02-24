@@ -1,7 +1,7 @@
 `#react` `#ludus` `#React` `#ReactJS` `#ReactHooks` `#TailwindCSS` `#ReactHookForm` `#CustomHooks` `#TypeScript` `#CSSModules` `#Figma` `#memo` `#UseMemo` `#Memoization` `#UseCallback` `#LazyLoading` `#Suspense` `#SkeletonScreens` `#LoadingPerformance` `#ReactOptimization`
 
 <div>
-    <img src="/src/assets/img/logo.webp" alt="ludus-project" width="250">
+    <img src="/src/assets/img/logo_black.webp" alt="ludus-project" width="150">
 </div>
 
 #### Table of Contents
@@ -50,18 +50,15 @@ The main objective of this project is to help users discover cocktail recipes ba
 
 #### Organization Folders
 
-The project is organization based on MVC (Model Visit Controler):
+The project is organization based on MVC:
 
-- Assets: ...
-- Components: ...
-- Hook: ...
-- Model: ...
-- Service: ...
-- Model: ...
-- Hooks: ...
-- Theme: ...
-- Types: ...
-- Utils: ...
+- Assets
+- Components
+- Hook
+- Model
+- Service
+- Types
+- Utils
 
 #### Technology stack
 
@@ -76,9 +73,8 @@ This the stack I used to develop this project:
 - Vite
 - React
 - React-icons
-- React-hook-form
-- React-hot-toast
-- Vercel
+- Netlify
+- React Testing Library
 - Jest
 
 #### Deployment // PENDIENTE
