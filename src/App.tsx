@@ -41,8 +41,6 @@ const App = () => {
   return (
     <>
       <Header onSearch={handleSearch} />
-
-      {/* EL PUTO ARRON GENERA UN CONTENEDOR  */}
       <section className="flex justify-center">
         <button
           className="w-60 mt-5 pl-3 pr-3 py-1.5 border-gray-300 rounded-md bg-white text-gray-500 placeholder-gray-400 sm:text-xm md:text-lg lg:text-lg"
