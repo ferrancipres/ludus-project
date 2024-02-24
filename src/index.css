@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -14,8 +18,8 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: 200;
+  color: #ffffff;
   text-decoration: inherit;
 }
 a:hover {
@@ -24,14 +28,22 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  position: relative;
   min-height: 100vh;
+  /* display: flex;
+  flex-direction: column; */
+
+  min-width: 320px;
+  justify-content: center;
+  background-image: url("assets/img/background3.jpg");
+  /* background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat; */
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 1.2em;
   line-height: 1.1;
 }
 

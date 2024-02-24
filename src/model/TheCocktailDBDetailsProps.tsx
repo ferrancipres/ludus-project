@@ -1,14 +1,20 @@
 export interface TheCocktailDBDetailsProps {
+  map(
+    arg0: (data: any) => import("react/jsx-runtime").JSX.Element
+  ): import("react").ReactNode;
+  glas: string;
+  alcoholContent: string;
+  ingredients: string[];
+  mesures: string[];
+  instructions: string;
   idDrink: string;
   strDrink: string;
   strDrinkAlternate?: string;
-  strVideo?: any;
   strCategory: string;
   strIBA: string;
   strAlcoholic: string;
   strGlass: string;
   strInstructions: string;
-  strInstructionsES?: any;
   strInstructionsDE: string;
   strInstructionsFR?: string;
   strInstructionsIT: string;

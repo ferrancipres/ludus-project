@@ -1,7 +1,7 @@
 import { DataTypeProps } from "../types/dataTypeProps";
 
-export const sortDrinks = (drinks: DataTypeProps[]) => {
-  return drinks.sort((a, b) => {
+export const useSortCocktail = (cocktails: DataTypeProps[]) => {
+  return cocktails.sort((a, b) => {
     if (a.alcoholContent !== "Alcoholic" && b.alcoholContent === "Alcoholic")
       return -1;
 
