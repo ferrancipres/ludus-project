@@ -14,7 +14,7 @@ type CocktailRandomCard = {
 const CocktailRandomCard: React.FC<CocktailRandomCard> = ({ data }) => {
   const { isModalOpen, toggleModal } = useCocktailDetails();
   return (
-    <div className="max-w-xs shadow-lg bg-white border border-gray-200 rounded-lg dark:bg-black dark:border-gray-700">
+    <div className="max-w-xs shadow-lg bg-white border border-gray-200 rounded-lg dark:bg-teal-950 dark:border-gray-700">
       <React.Fragment key={data.idDrink}>
         <img
           key={`image-${data.idDrink}`}
@@ -73,15 +73,15 @@ const CocktailRandomCard: React.FC<CocktailRandomCard> = ({ data }) => {
         </article>
       </React.Fragment>
       <ModalDetails isOpen={isModalOpen} onClose={toggleModal}>
-        <h5 className="flex items-center mb-2 text-2xl font-semibold  dark:text-black">
+        <h5 className="flex items-center mb-2 text-2xl font-semibold  dark:text-white">
           <BiSolidDrink />
           {data.strDrink}
         </h5>
 
-        <h6 className="flex items-center mb-2 mt-2 text-md font-semibold dark:text-black">
+        <h6 className="flex items-center mb-2 mt-2 text-md font-semibold dark:text-white">
           <FaBowlFood /> Ingredients:
         </h6>
-        <ul className="list-disc text-sm font-normal mb-4 ml-4 dark:text-black">
+        <ul className="list-disc text-sm font-normal mb-4 ml-4">
           {data.ingredients.map((ingredient: string) => (
             <li className="mb-2" key={ingredient}>
               {ingredient}
@@ -89,11 +89,11 @@ const CocktailRandomCard: React.FC<CocktailRandomCard> = ({ data }) => {
           ))}
         </ul>
 
-        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-black">
+        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-white">
           <FaRulerCombined />
           Mesures:
         </h6>
-        <ul className="list-disc text-sm font-normal mb-4 ml-4 dark:text-black">
+        <ul className="list-disc text-sm font-normal mb-4 ml-4">
           {data.mesures.map((mesure: string) => (
             <li className="mb-2" key={mesure}>
               {mesure}
@@ -101,11 +101,11 @@ const CocktailRandomCard: React.FC<CocktailRandomCard> = ({ data }) => {
           ))}
         </ul>
 
-        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-black">
+        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-white">
           <IoDocumentTextOutline />
           Instructions:
         </h6>
-        <ul className="list-decimal text-sm font-normal ml-4 dark:text-black">
+        <ul className="list-decimal text-sm font-normal ml-4">
           {data.instructions.split(".").map((item: string, index: number) => {
             const trimmedItem = item.trim();
             return trimmedItem !== "" ? (
