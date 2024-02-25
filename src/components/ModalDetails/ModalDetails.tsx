@@ -25,7 +25,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({
       onClick={handleModalClose}
     >
       <div
-        className="p-5 dark:bg-teal-950 rounded-lg shadow-lg flex flex-col items-start max-w-lg w-full"
+        className="p-5 dark:bg-black rounded-lg shadow-lg flex flex-col items-start max-w-lg w-full"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

@@ -15,7 +15,7 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
   const { isModalOpen, toggleModal } = useCocktailDetails();
 
   return (
-    <div className="max-w-xs shadow-lg bg-white border border-gray-200 rounded-lg dark:bg-teal-950 dark:border-gray-700">
+    <div className="max-w-xs shadow-lg bg-white border border-gray-200 rounded-lg dark:bg-black dark:border-gray-700">
       <img
         className="rounded-t-lg"
         src={cocktail.strDrinkThumb}
