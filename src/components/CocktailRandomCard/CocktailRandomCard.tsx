@@ -73,15 +73,15 @@ const CocktailRandomCard: React.FC<CocktailRandomCard> = ({ data }) => {
         </article>
       </React.Fragment>
       <ModalDetails isOpen={isModalOpen} onClose={toggleModal}>
-        <h5 className="flex items-center mb-2 text-2xl font-semibold  dark:text-white">
+        <h5 className="flex items-center mb-2 text-2xl font-semibold  dark:text-black">
           <BiSolidDrink />
           {data.strDrink}
         </h5>
 
-        <h6 className="flex items-center mb-2 mt-2 text-md font-semibold dark:text-white">
+        <h6 className="flex items-center mb-2 mt-2 text-md font-semibold dark:text-black">
           <FaBowlFood /> Ingredients:
         </h6>
-        <ul className="list-disc text-sm font-normal mb-4 ml-4">
+        <ul className="list-disc text-sm font-normal mb-4 ml-4 dark:text-black">
           {data.ingredients.map((ingredient: string) => (
             <li className="mb-2" key={ingredient}>
               {ingredient}
@@ -89,11 +89,11 @@ const CocktailRandomCard: React.FC<CocktailRandomCard> = ({ data }) => {
           ))}
         </ul>
 
-        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-white">
+        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-black">
           <FaRulerCombined />
           Mesures:
         </h6>
-        <ul className="list-disc text-sm font-normal mb-4 ml-4">
+        <ul className="list-disc text-sm font-normal mb-4 ml-4 dark:text-black">
           {data.mesures.map((mesure: string) => (
             <li className="mb-2" key={mesure}>
               {mesure}
@@ -101,11 +101,11 @@ const CocktailRandomCard: React.FC<CocktailRandomCard> = ({ data }) => {
           ))}
         </ul>
 
-        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-white">
+        <h6 className="flex items-center mb-2 text-md font-semibold dark:text-black">
           <IoDocumentTextOutline />
           Instructions:
         </h6>
-        <ul className="list-decimal text-sm font-normal ml-4">
+        <ul className="list-decimal text-sm font-normal ml-4 dark:text-black">
           {data.instructions.split(".").map((item: string, index: number) => {
             const trimmedItem = item.trim();
             return trimmedItem !== "" ? (
